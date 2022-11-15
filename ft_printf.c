@@ -80,21 +80,17 @@ int	ft_printf(const char *str, ...)
 	return (length);
 }
 
-int main()
-{
-	char	str[] = "Hello world";
-	char	*p = str;
+// int main()
+// {
+// 	char	str[] = "Hello world";
+// 	char	*p = str;
 
-// 	printf("\n%d\n", ft_printf("%c %s %i %u %% %i %d %x %X %% %p", 
-// str[0], str, 504, 400000000, 16, 42, 123, 123, p));
-// 	printf("\n%d\n",    printf("%c %s %i %u %% %i %d %x %X %% %p", 
-// str[0], str, 504, 400000000, 16, 42, 123, 123, p));
-	// printf("%d\n", ft_printf(" NULL %s NULL ", NULL));
-	// ft_printf(" %s %s %s %s %s ", " - ", "", "4", "", "2 ");
-	// printf("\n%d\n", ft_printf("%p", -1));
-	// printf("\n%d\n", ft_printf(" %p %p ", NULL, 0));
-	// printf("\n%d\n", ft_printf(" %%%% "));
-	// printf("\n%d\n", 
-	printf("%-d", 12);
-	// );
-}
+// 	printf("\n%d\n", ft_printf(",%c %s %i %u %%
+// %i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t",
+// 		str[0], str, 504, -400000000, 16, 42, -6,
+// 2123, p, "", " - ", NULL, -2, 0, NULL));
+// 	printf("\n%d\n",    printf(",%c %s %i %u %% 
+// %i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t",
+// 		str[0], str, 504, -400000000, 16, 42, -6,
+// 2123, p, "", " - ", NULL, -2, 0, NULL));
+// }
