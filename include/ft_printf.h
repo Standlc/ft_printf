@@ -6,7 +6,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
-# include "utils.h"
+# include "./utils.h"
 
 int	ft_printf(const char *str, ...);
 

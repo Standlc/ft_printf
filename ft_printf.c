@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "include/ft_printf.h"
+#include "include/utils.h"
+#include "include/format_handlers.h"
 
-int	indexof(char *str, char c)
+static int	indexof(char *str, char c)
 {
 	int	i;
 
@@ -26,50 +28,53 @@ int	indexof(char *str, char c)
 	return (-1);
 }
 
-char	*formats()
+static void	initialize_function_arr(int (*arr[9])(va_list, char *, int))
 {
-	return ("cspdiuxX%%");
+	arr[0] = &handle_c;
+	arr[1] = &handle_s;
+	arr[2] = &handle_p;
+	arr[3] = &handle_d;
+	arr[4] = &handle_i;
+	arr[5] = &handle_u;
+	arr[6] = &handle_x;
+	arr[7] = &handle_upperx;
+	arr[8] = &handle_percent;
 }
 
-int	print(char format, va_list pargs)
+static int	handle_format(char format, va_list pargs)
 {
-	if (format == 'c')
-		return (ft_putchar(va_arg(pargs, int)));
-	if (format == 's')
-		return (ft_putstr(va_arg(pargs, char *)));
-	if (format == 'i')
-		return (ft_putstr(ft_itoa(va_arg(pargs, int))));
-	if (format == 'd')
-		return (ft_putstr(ft_itoa(va_arg(pargs, double))));
-	if (format == 'u')
-		return (ft_putstr(ft_unsigned_itoa(va_arg(pargs, unsigned int))));
-	if (format == 'x')
-		return (ft_putstr(ft_itohexa(va_arg(pargs, int), 1)));
-	if (format == 'X')
-		return (ft_putstr(ft_itohexa(va_arg(pargs, int), 0)));
-	if (format == '%')
-		return (ft_putchar('%'));
-	if (format == 'p')
-		return (ft_putstr(tohexa_memory(va_arg(pargs, long))) + 2);
-	return (0);
+	int		(*print_functions[9])(va_list, char *, int);
+	char	*p;
+	int		length;
+
+	initialize_function_arr(print_functions);
+	p = NULL;
+	length = 0;
+	return (print_functions[indexof("cspdiuxX%%", format)](pargs, p, length));
 }
 
 int	ft_printf(const char *str, ...)
 {
-	int	length;
-	va_list pargs;
-	va_start(pargs, str);
+	int		length;
+	va_list	pargs;
 
+	va_start(pargs, str);
 	length = 0;
-	while (*(++str))
+	while (*str)
 	{
-		if (*(str - 1) == '%' && indexof(formats(), *str) != -1)
-			length += print(*str, pargs);
+		if (*(str) == '%' && indexof("cspdiuxX%%", *(str + 1)) != -1)
+		{
+			length += handle_format(*(str + 1), pargs);
+			str++;
+			if (!*str)
+				break ;
+		}
 		else if (*str != '%')
 		{
 			write(1, str, 1);
 			length++;
 		}
+		str++;
 	}
 	va_end(pargs);
 	return (length);
@@ -80,7 +85,16 @@ int main()
 	char	str[] = "Hello world";
 	char	*p = str;
 
-	// printf("\n%d\n", ft_printf("%c %s %i %u %% %i %d %x %X %% %p", str[0], str, 504, 400000000, 16, 42.5, 123, 123, p));
-	// printf("\n%d\n",    printf("%c %s %i %u %% %i %d %x %X %% %p", str[0], str, 504, 400000000, 16, 42, 123, 123, p));
-	ft_printf(" %c ", '0');
+// 	printf("\n%d\n", ft_printf("%c %s %i %u %% %i %d %x %X %% %p", 
+// str[0], str, 504, 400000000, 16, 42, 123, 123, p));
+// 	printf("\n%d\n",    printf("%c %s %i %u %% %i %d %x %X %% %p", 
+// str[0], str, 504, 400000000, 16, 42, 123, 123, p));
+	// printf("%d\n", ft_printf(" NULL %s NULL ", NULL));
+	// ft_printf(" %s %s %s %s %s ", " - ", "", "4", "", "2 ");
+	// printf("\n%d\n", ft_printf("%p", -1));
+	// printf("\n%d\n", ft_printf(" %p %p ", NULL, 0));
+	// printf("\n%d\n", ft_printf(" %%%% "));
+	// printf("\n%d\n", 
+	printf("%-d", 12);
+	// );
 }
