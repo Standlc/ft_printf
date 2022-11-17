@@ -7,7 +7,7 @@ NAME = libftprintf.a
 .c.o :
 	cc -c -Wall -Wextra -Werror $< -o ${<:.c=.o}
 
-libftprintf.a : ${OBJECTS}
+${NAME} : ${OBJECTS}
 	ar rc ${NAME} $^
 
 all: ${NAME}

@@ -62,7 +62,7 @@ int	ft_printf(const char *str, ...)
 	length = 0;
 	while (*str)
 	{
-		if (*(str) == '%' && indexof("cspdiuxX%%", *(str + 1)) != -1)
+		if (*str == '%' && indexof("cspdiuxX%%", *(str + 1)) != -1)
 		{
 			length += handle_format(*(str + 1), pargs);
 			str++;
