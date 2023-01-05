@@ -55,42 +55,50 @@ static int	handle_format(char format, va_list pargs)
 
 int	ft_printf(const char *str, ...)
 {
-	int		length;
+	int		format_printed_len;
+	int		total_printed_length;
 	va_list	pargs;
 
 	va_start(pargs, str);
-	length = 0;
+	total_printed_length = 0;
 	while (*str)
 	{
 		if (*str == '%' && indexof("cspdiuxX%%", *(str + 1)) != -1)
 		{
-			length += handle_format(*(str + 1), pargs);
+			format_printed_len = handle_format(*(str + 1), pargs);
 			str++;
-			if (!*str)
+			if (format_printed_len == -1 || !*str)
 				break ;
+			total_printed_length += format_printed_len;
 		}
 		else if (*str != '%')
 		{
 			write(1, str, 1);
-			length++;
+			total_printed_length++;
 		}
 		str++;
 	}
 	va_end(pargs);
-	return (length);
+	return (total_printed_length);
 }
 
+// #include <limits.h>
 // int main()
 // {
 // 	char	str[] = "Hello world";
 // 	char	*p = str;
 
-// 	printf("\n%d\n", ft_printf(",%c %s %i %u %%
-// %i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t",
+// 	printf("\n%d\n", ft_printf(",%c %s %i %u %% 
+// 		%i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t %c %x %u %d %d",
 // 		str[0], str, 504, -400000000, 16, 42, -6,
-// 2123, p, "", " - ", NULL, -2, 0, NULL));
-// 	printf("\n%d\n",    printf(",%c %s %i %u %% 
-// %i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t",
-// 		str[0], str, 504, -400000000, 16, 42, -6,
-// 2123, p, "", " - ", NULL, -2, 0, NULL));
+// 		2123, p, "", " - ", NULL, -2, 0, NULL, 150, INT_MIN, INT_MIN, 
+// 		INT_MIN, LONG_MAX));
+
+// 	// printf("\n%d\n",    printf(",%c %s %i %u %% 
+// 	// 	%i %d %x %X %% %p .%s. %s %%%% %p %p %d %s\t %c %x %u %d %d",
+// 	// 	str[0], str, 504, -400000000, 16, 42, -6,
+// 	// 	2123, p, "", " - ", NULL, -2, 0, NULL, 150, INT_MIN, INT_MIN, 
+// 	// 	INT_MIN, LONG_MAX));
+
+// 	return (0);
 // }

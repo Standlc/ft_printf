@@ -25,5 +25,6 @@ char			*ft_itohexa(unsigned long n, int is_lower_case);
 int				ft_putstr(char *s);
 int				ft_putchar(char c);
 unsigned int	absolute(int n);
+int				handle_malloc_error(void);
 
 #endif

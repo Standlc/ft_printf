@@ -12,6 +12,11 @@
 
 #include "../include/utils.h"
 
+int	handle_malloc_error(void)
+{
+	return (-1);
+}
+
 unsigned int	absolute(int n)
 {
 	if (n < 0)

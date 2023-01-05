@@ -16,6 +16,8 @@
 int	handle_u(va_list pargs, char *p, int length)
 {
 	p = ft_unsigned_itoa(va_arg(pargs, unsigned int));
+	if (!p)
+		return (handle_malloc_error());
 	length = ft_putstr(p);
 	free(p);
 	return (length);
@@ -24,6 +26,8 @@ int	handle_u(va_list pargs, char *p, int length)
 int	handle_x(va_list pargs, char *p, int length)
 {
 	p = ft_itohexa((unsigned int)va_arg(pargs, int), 1);
+	if (!p)
+		return (handle_malloc_error());
 	length = ft_putstr(p);
 	free(p);
 	return (length);
@@ -32,6 +36,8 @@ int	handle_x(va_list pargs, char *p, int length)
 int	handle_upperx(va_list pargs, char *p, int length)
 {
 	p = ft_itohexa((unsigned int)va_arg(pargs, int), 0);
+	if (!p)
+		return (handle_malloc_error());
 	length = ft_putstr(p);
 	free(p);
 	return (length);
@@ -49,6 +55,8 @@ int	handle_percent(va_list pargs, char *p, int length)
 int	handle_p(va_list pargs, char *p, int length)
 {
 	p = ft_itohexa(va_arg(pargs, long), 1);
+	if (!p)
+		return (handle_malloc_error());
 	if (p && p[0] == '0')
 	{
 		write(1, "(nil)", 5);

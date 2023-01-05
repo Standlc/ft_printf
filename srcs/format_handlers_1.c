@@ -36,6 +36,8 @@ int	handle_s(va_list pargs, char *p, int length)
 int	handle_i(va_list pargs, char *p, int length)
 {
 	p = ft_itoa(va_arg(pargs, int));
+	if (!p)
+		return (handle_malloc_error());
 	length = ft_putstr(p);
 	free(p);
 	return (length);
@@ -44,6 +46,8 @@ int	handle_i(va_list pargs, char *p, int length)
 int	handle_d(va_list pargs, char *p, int length)
 {
 	p = ft_itoa(va_arg(pargs, int));
+	if (!p)
+		return (handle_malloc_error());
 	length = ft_putstr(p);
 	free(p);
 	return (length);
